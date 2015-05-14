@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   get 'user/create'
+  get 'user/test' => 'user#test'
+  #post 'user/login' => 'user#login'
   post 'user/create' => 'user#create'
+  put 'user/update' => 'user#update'
+
+  match 'user/login', to: 'user#login', via: [:options, :get, :post]
+  # match 'user/login', :controller => 'user', :action => 'login', :constraints => {:method => 'OPTIONS'}
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

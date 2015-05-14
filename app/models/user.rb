@@ -10,4 +10,10 @@ class User < ActiveRecord::Base
     @password = Password.create(new_password)
     self.password_hash = @password
   end
+
+  def generate_auth_token
+    payload = {user_id: self.id}
+    AuthHelper::AuthToken.encode(payload)
+  end
+
 end
