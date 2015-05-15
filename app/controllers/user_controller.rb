@@ -1,10 +1,16 @@
 class UserController < ApplicationController
   before_action :user_params, only: [:create,:update]
-  skip_before_action :authenticate_request, only: [:login,:test]
+  skip_before_action :authenticate_request, only: [:login, :test1]
 
-  def test
-    render json: {pixel:{x:1,y:2,color:"FFFFFF"}},status: :ok
+  def test1
+    puts "*******HEADERS*******"
+    puts request.headers['Authorization']
+    puts "*******USER**********"
+    puts @current_user.inspect
+    puts "*****************"
+    render json: {Jero:{Funciona:"Satan Hpta!"}},status: :ok
   end
+
   def create
     @user = User.new(user_params)
     @user.password = params[:password]
@@ -26,6 +32,10 @@ class UserController < ApplicationController
       render json: {error: "usuario y/o contraseña invalidos"}, status: :unauthorized
     end
     # render json: {status:"ok"},status: :ok
+  end
+
+  def test
+    render json: params, status: :ok
   end
 
   def update
